@@ -12,11 +12,9 @@ class _SlpashState extends State<Slpash> with TickerProviderStateMixin {
   CurvedAnimation _curvedLogoMove;
   CurvedAnimation _curvedLogoOpacity;
 
-  AnimationController _controllerText0;
+  AnimationController _controllerText;
   CurvedAnimation _curvedText0Move;
   CurvedAnimation _curvedText0Opacity;
-
-  AnimationController _controllerText1;
 
   @override
   void initState() {
@@ -25,12 +23,12 @@ class _SlpashState extends State<Slpash> with TickerProviderStateMixin {
   }
 
   void initAnim() {
-    //    LOGO的动画
+    ///LOGO的动画
     _controllerLogo =
         AnimationController(duration: Duration(milliseconds: 800), vsync: this)
           ..addStatusListener((AnimationStatus status) {
             if (status == AnimationStatus.completed) {
-              _controllerText0.forward();
+              _controllerText.forward();
             }
           });
     Tween(begin: -40.0, end: 0.0).animate(_controllerLogo)
@@ -44,43 +42,28 @@ class _SlpashState extends State<Slpash> with TickerProviderStateMixin {
 
     _controllerLogo.forward();
 
-    //    字符串1的动画
-    _controllerText0 =
+    ///字符串的动画
+    _controllerText =
         AnimationController(duration: Duration(milliseconds: 800), vsync: this)
           ..addStatusListener((AnimationStatus status) {
             if (status == AnimationStatus.completed) {
-              _controllerText1.forward();
+              Navigator.of(context).pushReplacementNamed('/login');
             }
           });
-    Tween(begin: 10.0, end: 50.0).animate(_controllerText0)
+    Tween(begin: 10.0, end: 50.0).animate(_controllerText)
       ..addListener(() {
         setState(() {});
       });
     _curvedText0Move =
-        CurvedAnimation(parent: _controllerText0, curve: Curves.easeIn);
+        CurvedAnimation(parent: _controllerText, curve: Curves.easeIn);
     _curvedText0Opacity =
-        CurvedAnimation(parent: _controllerText0, curve: Curves.easeIn);
-
-    //    字符串2的动画
-    _controllerText1 =
-        AnimationController(duration: Duration(milliseconds: 800), vsync: this)
-          ..addStatusListener((AnimationStatus status) {
-            if (status == AnimationStatus.completed) {
-              Navigator.of(context).pushReplacementNamed('/home');
-            }
-          });
-
-    Tween(begin: 10.0, end: 50.0).animate(_controllerText1)
-      ..addListener(() {
-        setState(() {});
-      });
+        CurvedAnimation(parent: _controllerText, curve: Curves.easeIn);
   }
 
   @override
   void dispose() {
     _controllerLogo.dispose();
-    _controllerText0.dispose();
-    _controllerText1.dispose();
+    _controllerText.dispose();
     super.dispose();
   }
 
