@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gank/config/Constants.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -8,10 +9,10 @@ class MyDrawer extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text('Rylynn', style: TextStyle(color: Colors.white)),
-            accountEmail: Text('infinity8942@qq.com', style: TextStyle(color: Colors.white)),
+            accountEmail: Text('infinity8942@qq.com',
+                style: TextStyle(color: Colors.white)),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://tva4.sinaimg.cn/crop.1.0.1240.1240.180/6b42753fjw8ero4vtoe4oj20yi0ygjte.jpg'),
+              backgroundImage: NetworkImage(Constants.TEST_AVATAR),
             ),
             otherAccountsPictures: <Widget>[
               GestureDetector(
