@@ -6,8 +6,14 @@ import 'package:flutter_gank/config/Constants.dart';
 import 'package:flutter_gank/models/Product.dart';
 import 'package:flutter_gank/ui/comm/MyScaffold.dart';
 
-class Shop extends StatelessWidget {
+class Shop extends StatefulWidget {
+  @override
+  ShopState createState() => new ShopState();
+}
+
+class ShopState extends State<Shop> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var productController;
 
   //stack1
   Widget imageStack(String img) => CachedNetworkImage(
@@ -107,8 +113,8 @@ class Shop extends StatelessWidget {
 
   Widget bodyData() {
     ///test data
-    final productController = StreamController<List<Product>>();
-    List<Product> list = new List();
+    productController = StreamController<List<Product>>();
+    var list = new List<Product>();
     for (int i = 0; i < 9; i++) {
       Product product = new Product();
       product.name = "Coffeemaker";
@@ -119,7 +125,6 @@ class Shop extends StatelessWidget {
       list.add(product);
     }
     productController.add(list);
-
     return StreamBuilder<List<Product>>(
         stream: productController.stream,
         builder: (context, snapshot) {
@@ -147,9 +152,15 @@ class Shop extends StatelessWidget {
       scaffoldKey: scaffoldKey,
       appTitle: "Products",
       showDrawer: true,
-      showFAB: false,
+      showFAB: true,
       actionFirstIcon: Icons.shopping_cart,
       bodyData: bodyData(),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    productController.dispose();
   }
 }

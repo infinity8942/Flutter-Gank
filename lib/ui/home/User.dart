@@ -30,7 +30,6 @@ class UserState extends State<User> {
                 GestureDetector(
                   onTap: () {
                     getImage();
-                    print('BUtton was tapped');
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -38,7 +37,9 @@ class UserState extends State<User> {
                         border: Border.all(width: 2.0, color: Colors.white)),
                     child: CircleAvatar(
                       radius: 40.0,
-                      backgroundImage: NetworkImage(Constants.TEST_AVATAR),
+                      backgroundImage: _image == null
+                          ? NetworkImage(Constants.TEST_AVATAR)
+                          : Image.file(_image),
                     ),
                   ),
                 ),
@@ -142,6 +143,20 @@ class UserState extends State<User> {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
+              ),
+              RaisedButton(
+                color: Colors.blue,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "Chat",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.0,
+                        color: Colors.white),
+                  ),
+                ),
+                onPressed: () {},
               ),
             ],
           ),

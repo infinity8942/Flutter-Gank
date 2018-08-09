@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gank/models/GankList.dart';
 import 'package:flutter_gank/models/GankItem.dart';
+import 'package:flutter_gank/models/GankList.dart';
 import 'package:flutter_gank/ui/comm/LoadingMoreFooter.dart';
 import 'package:flutter_gank/ui/comm/LoadingPage.dart';
 import 'package:flutter_gank/ui/comm/MyWebview.dart';
@@ -49,25 +49,24 @@ class _AndroidPageState extends State<AndroidPage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget listview = RefreshIndicator(
+      child: ListView.builder(
+        itemCount: 2 * data.length + 1,
+        itemBuilder: (context, i) {
+          if (i.isOdd) return Divider(height: 1.0);
+          if (i == 2 * data.length) return LoadingMoreFooter();
+          final index = i ~/ 2;
+          return _buildRow(data[index]);
+        },
+        controller: _controller,
+      ),
+      onRefresh: () => _getData(true),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Android'),
       ),
-      body: data.length == 0
-          ? LoadingPage()
-          : RefreshIndicator(
-              child: ListView.builder(
-                itemCount: 2 * data.length + 1,
-                itemBuilder: (context, i) {
-                  if (i.isOdd) return Divider(height: 1.0);
-                  if (i == 2 * data.length) return LoadingMoreFooter();
-                  final index = i ~/ 2;
-                  return _buildRow(data[index]);
-                },
-                controller: _controller,
-              ),
-              onRefresh: () => _getData(true),
-            ),
+      body: data.length == 0 ? LoadingPage() : listview,
     );
   }
 
