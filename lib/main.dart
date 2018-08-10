@@ -31,7 +31,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _appOpt = AppOptions(appTheme: defTheme);
+
+    _appOpt = AppOptions(
+        appTheme: AppTheme(ThemeData().copyWith(primaryColor: Colors.blue)));
   }
 
   @override

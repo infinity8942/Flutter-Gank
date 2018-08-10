@@ -18,6 +18,8 @@ class _AndroidPageState extends State<AndroidPage> {
   num currPage = 1;
   ScrollController _controller;
 
+  CancelToken token = new CancelToken();
+
   @override
   void initState() {
     super.initState();
@@ -38,8 +40,15 @@ class _AndroidPageState extends State<AndroidPage> {
       data.clear();
       currPage = 1;
     }
-    await Dio().get('http://gank.io/api/data/Android/10/$currPage').then(
-        (resp) {
+    await Dio()
+        .get('http://gank.io/api/data/Android/10/$currPage', cancelToken: token)
+        .catchError((DioError err) {
+      if (CancelToken.isCancel(err)) {
+        print('Request canceled! ' + err.message);
+      } else {
+        // handle error.
+      }
+    }).then((resp) {
       GankList gankList = GankList.fromJson(resp.data);
       setState(() {
         data.addAll(gankList.results);
@@ -79,5 +88,11 @@ class _AndroidPageState extends State<AndroidPage> {
             return MyWebview(title: item.desc, url: item.url);
           })),
     );
+  }
+
+  @override
+  void dispose() {
+    token.cancel("cancelled");
+    super.dispose();
   }
 }

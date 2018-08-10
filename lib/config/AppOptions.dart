@@ -19,6 +19,3 @@ class AppTheme {
     return AppTheme(themeData.copyWith(primaryColor: color));
   }
 }
-
-final AppTheme defTheme =
-    AppTheme(ThemeData().copyWith(primaryColor: Colors.blue));

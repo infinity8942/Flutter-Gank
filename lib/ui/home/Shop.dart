@@ -13,7 +13,25 @@ class Shop extends StatefulWidget {
 
 class ShopState extends State<Shop> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  var productController;
+
+  List<Product> list = <Product>[];
+  num currPage = 1;
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ScrollController()
+      ..addListener(() {
+        var maxScroll = _controller.position.maxScrollExtent;
+        var pixels = _controller.position.pixels;
+        if (maxScroll - pixels < 200.0) {
+          currPage++;
+          _getData(false);
+        }
+      });
+    _getData(true);
+  }
 
   //stack1
   Widget imageStack(String img) => CachedNetworkImage(
@@ -89,12 +107,13 @@ class ShopState extends State<Shop> {
   Widget productGrid(List<Product> products) => GridView.count(
         crossAxisCount: 2,
         shrinkWrap: true,
+    controller: _controller,
         children: products
             .map((product) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     splashColor: Colors.yellow,
-                    onDoubleTap: () => showSnackBar(),
+                    onDoubleTap: () => showSnackBar("Added to cart."),
                     child: Material(
                       elevation: 2.0,
                       child: Stack(
@@ -112,33 +131,37 @@ class ShopState extends State<Shop> {
       );
 
   Widget bodyData() {
-    ///test data
-    productController = StreamController<List<Product>>();
-    var list = new List<Product>();
-    for (int i = 0; i < 9; i++) {
+    return list.isNotEmpty
+        ? RefreshIndicator(
+      child: productGrid(list),
+      onRefresh: () => _getData(true),
+    )
+        : Center(child: CircularProgressIndicator());
+  }
+
+  Future<Null> _getData(bool isRefresh) async {
+    if (isRefresh) {
+      list.clear();
+      currPage = 1;
+    }
+
+    List<Product> list_temp = <Product>[];
+    for (int i = 0; i < 10; i++) {
       Product product = new Product();
-      product.name = "Coffeemaker";
+      product.name = "Coffeemaker" + i.toString();
       product.image = Constants.TEST_IMAGE1;
       product.price = "￥998.9";
       product.rating = 5.0;
-
-      list.add(product);
+      list_temp.add(product);
     }
-    productController.add(list);
-    return StreamBuilder<List<Product>>(
-        stream: productController.stream,
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? productGrid(snapshot.data)
-              : Center(child: CircularProgressIndicator());
-        });
+    setState(() {
+      list.addAll(list_temp);
+    });
   }
 
-  void showSnackBar() {
+  void showSnackBar(String message) {
     scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(
-        "Added to cart.",
-      ),
+      content: Text(message),
       action: SnackBarAction(
         label: "Undo",
         onPressed: () {},
@@ -156,11 +179,5 @@ class ShopState extends State<Shop> {
       actionFirstIcon: Icons.shopping_cart,
       bodyData: bodyData(),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    productController.dispose();
   }
 }

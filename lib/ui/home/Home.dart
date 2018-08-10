@@ -36,7 +36,6 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     initData();
     return Scaffold(
-
       ///底部导航栏
       bottomNavigationBar: new CupertinoTabBar(
         backgroundColor: Colors.white,

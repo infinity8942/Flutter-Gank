@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/config/AppOptions.dart';
+import 'package:flutter_gank/config/Constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Setting extends StatelessWidget {
   const Setting({Key key, this.appOpt, this.onOptionsChanged})
       : super(key: key);
   final AppOptions appOpt;
   final ValueChanged<AppOptions> onOptionsChanged;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,7 @@ class Setting extends StatelessWidget {
                 crossAxisCount: 6,
                 crossAxisSpacing: 4.0,
                 mainAxisSpacing: 4.0,
-                children: colorList.map((item) {
+                children: Constants.colorList.map((item) {
                   return GestureDetector(
                     child: Container(
                       color: item,
@@ -36,6 +39,7 @@ class Setting extends StatelessWidget {
                       onOptionsChanged(appOpt.copyWith(
                           appTheme: AppTheme(
                               ThemeData().copyWith(primaryColor: item))));
+                      _save(item);
                     },
                   );
                 }).toList(),
@@ -43,40 +47,12 @@ class Setting extends StatelessWidget {
             ),
           ],
         ),
-        // child: GridView.count(
-        //   physics: new NeverScrollableScrollPhysics(),
-        //   crossAxisCount: 6,
-        //   crossAxisSpacing: 4.0,
-        //   mainAxisSpacing: 4.0,
-        //   children: colorList.map((item) {
-        //     return GestureDetector(
-        //       child: Container(
-        //         color: item,
-        //       ),
-        //       onTap: () {
-        //         onOptionsChanged(appOpt.copyWith(
-        //             appTheme:
-        //                 AppTheme(ThemeData().copyWith(primaryColor: item))));
-        //       },
-        //     );
-        //   }).toList(),
-        // ),
       ),
     );
   }
-}
 
-const List<Color> colorList = <Color>[
-  Colors.red,
-  Colors.pink,
-  Colors.green,
-  Colors.teal,
-  Colors.blue,
-  Colors.cyan,
-  Colors.purple,
-  Colors.yellow,
-  Colors.lime,
-  Colors.orange,
-  Colors.white,
-  Colors.black,
-];
+  _save(Color color) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('color', color.value);
+  }
+}

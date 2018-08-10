@@ -5,12 +5,23 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #图标
   cupertino_icons: ^0.1.2
+  #网络请求
   dio: ^1.0.0
-  flutter_webview_plugin: ^0.2.1+1
+  #WebView
+  flutter_webview_plugin: ^0.2.1+2
+  #加载等待动画
   flutter_spinkit: ^2.0.1
+  #图片加载、缓存
   cached_network_image: ^0.4.1+1
+  #配置持久化
+  shared_preferences: ^0.4.2
+  #相册图片选择
   image_picker: ^0.4.6
+  #标题栏搜索框
+  flutter_search_bar: ^2.0.5
+  #微信、QQ登录分享
   flutter_wechat: ^0.1.5
   flutter_qq: ^0.0.4
 

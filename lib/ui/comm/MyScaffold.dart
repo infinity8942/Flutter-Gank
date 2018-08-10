@@ -34,7 +34,6 @@ class MyScaffold extends StatelessWidget {
       backgroundColor: backGroundColor != null ? backGroundColor : null,
       appBar: AppBar(
         elevation: elevation,
-        backgroundColor: Colors.blue,
         title: Text(appTitle),
         actions: <Widget>[
           SizedBox(
