@@ -9,6 +9,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   #网络请求
   dio: ^1.0.0
+  #Json序列化
+  json_annotation: ^1.1.0
   #WebView
   flutter_webview_plugin: ^0.2.1+2
   #加载等待动画
@@ -29,11 +31,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+ #Json序列化
+  build_runner: ^0.10.1
+  json_serializable: ^1.1.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
+  # For information on the generic Dart part of this file, see the
+  # following page: https://www.dartlang.org/tools/pub/pubspec
 
-# The following section is specific to Flutter.
+  # The following section is specific to Flutter.
 flutter:
 
   # The following line ensures that the Material Icons font is
