@@ -39,7 +39,7 @@ class _WebState extends State<Web> {
       currPage = 1;
     }
     await Dio().get('http://gank.io/api/data/前端/10/$currPage').then((resp) {
-      GankList gankList = GankList.fromJsonOld(resp.data);
+      GankList gankList = GankList.fromJson(resp.data);
       setState(() {
         data.addAll(gankList.results);
       });

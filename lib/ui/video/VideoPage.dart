@@ -39,7 +39,7 @@ class _VideoPageState extends State<VideoPage> {
       currPage = 1;
     }
     await Dio().get('http://gank.io/api/data/休息视频/10/$currPage').then((resp) {
-      GankList gankList = GankList.fromJsonOld(resp.data);
+      GankList gankList = GankList.fromJson(resp.data);
       setState(() {
         data.addAll(gankList.results);
       });

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gank/config/AppOptions.dart';
 import 'package:flutter_gank/config/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Setting extends StatelessWidget {
   const Setting({Key key, this.appOpt, this.onOptionsChanged})
@@ -73,7 +74,12 @@ class Setting extends StatelessWidget {
   }
 
   _save(Color color) async {
+    ///本地缓存
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('color', color.value);
+
+    ///数据库读写
+    var databasesPath = await getDatabasesPath();
+    //TODO
   }
 }

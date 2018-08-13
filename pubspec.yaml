@@ -19,6 +19,8 @@ dependencies:
   cached_network_image: ^0.4.1+1
   #配置持久化
   shared_preferences: ^0.4.2
+  #数据库
+  sqflite: ^0.11.1
   #相册图片选择
   image_picker: ^0.4.6
   #标题栏搜索框
