@@ -3,8 +3,8 @@ import 'package:flutter_gank/ui/comm/MyDrawer.dart';
 
 class MyScaffold extends StatelessWidget {
   final appTitle;
+  final Widget appBar;
   final Widget bodyData;
-  final showFAB;
   final showDrawer;
   final backGroundColor;
   final actionFirstIcon;
@@ -17,8 +17,8 @@ class MyScaffold extends StatelessWidget {
   MyScaffold(
       {this.appTitle,
       this.bodyData,
-      this.showFAB = false,
-      this.showDrawer = true,
+        this.appBar,
+        this.showDrawer,
       this.backGroundColor,
       this.actionFirstIcon = Icons.search,
       this.scaffoldKey,
@@ -32,7 +32,9 @@ class MyScaffold extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey != null ? scaffoldKey : null,
       backgroundColor: backGroundColor != null ? backGroundColor : null,
-      appBar: AppBar(
+      appBar: appBar != null
+          ? appBar
+          : AppBar(
         elevation: elevation,
         title: Text(appTitle),
         actions: <Widget>[
@@ -49,7 +51,7 @@ class MyScaffold extends StatelessWidget {
           )
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: showDrawer ? MyDrawer() : null,
       body: bodyData,
       floatingActionButton: null,
       bottomNavigationBar: null,

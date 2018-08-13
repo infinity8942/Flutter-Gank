@@ -1,5 +1,3 @@
-// import 'GankItem.dart';
-
 import 'package:flutter_gank/models/GankItem.dart';
 
 class Gank {
@@ -43,5 +41,3 @@ class Gank {
     return results;
   }
 }
-
-

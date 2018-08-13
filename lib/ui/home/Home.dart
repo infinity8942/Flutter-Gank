@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/ui/comm/MyDrawer.dart';
 import 'package:flutter_gank/ui/home//Gank.dart';
-import 'package:flutter_gank/ui/home/Shop.dart';
+import 'package:flutter_gank/ui/home/ShopList.dart';
 import 'package:flutter_gank/ui/home/User.dart';
 
 class Main extends StatefulWidget {
@@ -27,7 +27,7 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
 
   void initData() {
     _body = new IndexedStack(
-      children: <Widget>[new Home(), new Shop(), new User()],
+      children: <Widget>[new Home(), new ShopList(), new User()],
       index: _tabIndex,
     );
   }

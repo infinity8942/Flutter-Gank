@@ -13,9 +13,9 @@ class GankList {
   static formatedList(list) {
     List<GankItem> ganklist = <GankItem>[];
     if (list != null) {
-        list.forEach((v) {
-            ganklist.add(GankItem.fromJson(v));
-        });
+      list.forEach((v) {
+        ganklist.add(GankItem.fromJson(v));
+      });
     }
     return ganklist;
   }

@@ -38,8 +38,7 @@ class _IosState extends State<Ios> {
       data.clear();
       currPage = 1;
     }
-    await Dio().get('http://gank.io/api/data/iOS/10/$currPage').then(
-        (resp) {
+    await Dio().get('http://gank.io/api/data/iOS/10/$currPage').then((resp) {
       GankList gankList = GankList.fromJson(resp.data);
       setState(() {
         data.addAll(gankList.results);

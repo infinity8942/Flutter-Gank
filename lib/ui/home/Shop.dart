@@ -4,19 +4,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gank/config/Constants.dart';
 import 'package:flutter_gank/models/Product.dart';
-import 'package:flutter_gank/ui/comm/MyScaffold.dart';
 
 class Shop extends StatefulWidget {
   @override
   ShopState createState() => new ShopState();
 }
 
-class ShopState extends State<Shop> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class ShopState extends State<Shop> with AutomaticKeepAliveClientMixin {
 
   List<Product> list = <Product>[];
   num currPage = 1;
   ScrollController _controller;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -113,7 +114,7 @@ class ShopState extends State<Shop> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     splashColor: Colors.yellow,
-                    onDoubleTap: () => showSnackBar("Added to cart."),
+//                    onDoubleTap: () => showSnackBar("Added to cart."),
                     child: Material(
                       elevation: 2.0,
                       child: Stack(
@@ -159,25 +160,8 @@ class ShopState extends State<Shop> {
     });
   }
 
-  void showSnackBar(String message) {
-    scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text(message),
-      action: SnackBarAction(
-        label: "Undo",
-        onPressed: () {},
-      ),
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MyScaffold(
-      scaffoldKey: scaffoldKey,
-      appTitle: "Products",
-      showDrawer: true,
-      showFAB: true,
-      actionFirstIcon: Icons.shopping_cart,
-      bodyData: bodyData(),
-    );
+    return bodyData();
   }
 }

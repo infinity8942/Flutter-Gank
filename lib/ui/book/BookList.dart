@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gank/models/BookResp.dart';
 import 'package:flutter_gank/ui/comm/LoadingMoreFooter.dart';
 import 'package:flutter_gank/ui/comm/LoadingPage.dart';
@@ -10,6 +11,7 @@ class BookList extends StatefulWidget {
   final String category;
 
   const BookList({Key key, this.category}) : super(key: key);
+
   @override
   _BookListState createState() => _BookListState();
 }
@@ -44,10 +46,8 @@ class _BookListState extends State<BookList>
       currPage = 1;
       data.clear();
     }
-    await Dio()
-        .get(
-            'http://gank.io/api/xiandu/data/id/${widget.category}/count/10/page/$currPage')
-        .then((resp) {
+    await Dio().get('http://gank.io/api/xiandu/data/id/${widget
+        .category}/count/10/page/$currPage').then((resp) {
       BookResp bookResp = BookResp.fromJson(resp.data);
       setState(() {
         data.addAll(bookResp.results);
