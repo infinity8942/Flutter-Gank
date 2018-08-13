@@ -35,6 +35,9 @@ class _MainState extends State<Main> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     initData();
+
+    final TargetPlatform defaultTargetPlatform = TargetPlatform.iOS;
+
     return Scaffold(
       ///底部导航栏
       bottomNavigationBar: new CupertinoTabBar(

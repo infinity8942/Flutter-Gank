@@ -67,6 +67,15 @@ class _MyTabBar extends State<MyTabBar> with SingleTickerProviderStateMixin {
       floatingActionButton: _floatingActionButton,
       appBar: new AppBar(
         title: Text(appTitle),
+        actions: <Widget>[
+          SizedBox(
+            width: 5.0,
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_vert),
+          )
+        ],
         bottom: new TabBar(
           isScrollable: true,
           controller: _tabController,

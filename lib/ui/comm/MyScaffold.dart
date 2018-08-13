@@ -51,7 +51,7 @@ class MyScaffold extends StatelessWidget {
           )
         ],
       ),
-      drawer: showDrawer ? MyDrawer() : null,
+      drawer: showDrawer != null ? (showDrawer ? MyDrawer() : null) : null,
       body: bodyData,
       floatingActionButton: null,
       bottomNavigationBar: null,

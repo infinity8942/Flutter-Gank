@@ -16,6 +16,9 @@ class AppTheme {
   const AppTheme(this.themeData);
 
   AppTheme changePrimaryColor(Color color) {
-    return AppTheme(themeData.copyWith(primaryColor: color));
+    return AppTheme(themeData.copyWith(
+      primaryColor: color,
+      buttonColor: color,
+    ));
   }
 }

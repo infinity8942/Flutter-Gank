@@ -39,7 +39,13 @@ class MyDrawer extends StatelessWidget {
                       title: Text(item.title),
                       onTap: () {
                         if (item.route.length > 0) {
-                          Navigator.of(context).pushNamed(item.route);
+                          Navigator.of(context).pushNamed(item.route)
+
+                          ///静态路由跳转
+                              .then((value) {
+                            ///接受返回值
+                            print(value);
+                          });
                         }
                       },
                     );

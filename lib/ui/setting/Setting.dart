@@ -45,6 +45,27 @@ class Setting extends StatelessWidget {
                 }).toList(),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(top: 12.0),
+              child: RaisedButton(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "退出登录",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.0,
+                        color: Colors.white),
+                  ),
+                ),
+                color: appOpt.appTheme.themeData.primaryColor,
+                onPressed: () {
+                  ///跳转到新的路由，并且关闭给定路由的之前的所有页面
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', ModalRoute.withName('/'));
+                },
+              ),
+            ),
           ],
         ),
       ),

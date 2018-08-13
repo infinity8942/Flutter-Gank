@@ -82,6 +82,7 @@ class Login extends StatelessWidget {
                       ),
                       color: Colors.lightBlue,
                       onPressed: () {
+                        ///跳转替换
                         Navigator.of(context).pushReplacementNamed('/main');
                       },
                     ),
