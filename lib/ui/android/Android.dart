@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gank/models/GankItem.dart';
 import 'package:flutter_gank/models/GankList.dart';
 import 'package:flutter_gank/ui/comm/LoadingMoreFooter.dart';
@@ -14,6 +15,8 @@ class AndroidPage extends StatefulWidget {
 }
 
 class _AndroidPageState extends State<AndroidPage> {
+  static const platform = const MethodChannel('com.example.fluttergank/plugin');
+
   final List<GankItem> data = <GankItem>[];
   num currPage = 1;
   ScrollController _controller;
@@ -39,6 +42,8 @@ class _AndroidPageState extends State<AndroidPage> {
     if (isRefresh) {
       data.clear();
       currPage = 1;
+
+      _test();
     }
     await Dio()
         .get('http://gank.io/api/data/Android/10/$currPage', cancelToken: token)
@@ -88,6 +93,18 @@ class _AndroidPageState extends State<AndroidPage> {
             return MyWebview(title: item.desc, url: item.url);
           })),
     );
+  }
+
+  ///测试平台插件
+  Future<Null> _test() async {
+    String returnData;
+    try {
+      returnData = '平台返回数据：' + await platform.invokeMethod('YourMethodName');
+    } on PlatformException catch (e) {
+      returnData = '错误信息：${e.message}';
+    }
+
+    print('Request canceled! ' + returnData);
   }
 
   @override
